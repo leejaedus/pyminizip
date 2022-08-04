@@ -349,12 +349,12 @@ int _compress(const char** srcs, int src_num, const char** srcspath, int srcpath
         }
 
         /* Add to zip file */
-        err = zipOpenNewFileInZip3_64(zf, savefilenameinzip, &zi,
+        err = zipOpenNewFileInZip4_64(zf, savefilenameinzip, &zi,
                     NULL, 0, NULL, 0, NULL /* comment*/,
                     (level != 0) ? Z_DEFLATED : 0, level, 0,
                     /* -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY, */
                     -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
-                    password, crcFile, zip64);
+                    password, crcFile, 36, 1<<11, zip64);
 
         if (err != ZIP_OK) {
             pyerr_msg = PyErr_Format(PyExc_IOError, "error in opening %s in zipfile (%d)", filenameinzip, err);
